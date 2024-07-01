@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+  api:
+    container_name: ma-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ma-api
+    restart: always
+    ports:
+      - 8000:8000
+    depends_on:
+      - redis
+      - rabbitmq
+    networks:
+      - ma-network
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6378:6379"
+    networks:
+      - ma-network
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - ma-network
+
+networks:
+  ma-network:
+    driver: bridge

@@ -22,6 +22,8 @@ services:
 
   redis:
     image: redis:latest
+    command:
+      - '--save 10 1'
     ports:
       - "6378:6379"
     networks:
@@ -43,6 +45,7 @@ services:
     dns:
       - 8.8.8.8
       - 8.8.4.4
+
 networks:
   ma-network:
     driver: bridge

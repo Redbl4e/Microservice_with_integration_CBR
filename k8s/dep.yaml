@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redbl4e-dep
+  labels:
+    app: redbl4e
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redbl4e
+  template:
+    metadata:
+      labels:
+        app: redbl4e
+    spec:
+      dnsConfig:
+        nameservers:
+          - 8.8.8.8
+          - 8.8.4.4
+      containers:
+        - name: api
+          image: redbl4e/test:latest
+          ports:
+            - containerPort: 8000
+
+        - name: redis
+          image: redis:latest
+          ports:
+            - containerPort: 6379
+
+        - name: rabbitmq
+          image: rabbitmq:3-management
+          ports:
+            - containerPort: 5672
+            - containerPort: 15672

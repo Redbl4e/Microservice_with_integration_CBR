@@ -15,7 +15,7 @@ class RedisRepository(KeyValueRepositoryABC):
     def __init__(self) -> None:
         self.redis = Redis(
             host=settings.REDIS.HOST,
-            port=settings.REDIS.PORT,
+            port=6379,
             db=settings.REDIS.DATA_DB,
         )
 
